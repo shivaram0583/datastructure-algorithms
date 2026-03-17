@@ -1,3 +1,4 @@
+
 /**
  * Problem: Merge Intervals (LeetCode #56)
  * Difficulty: Medium
@@ -35,7 +36,7 @@ public class MergeIntervals {
             for (int i = 0; i < merged.size(); i++) {
                 for (int j = i + 1; j < merged.size(); j++) {
                     if (merged.get(i)[0] <= merged.get(j)[1] &&
-                        merged.get(j)[0] <= merged.get(i)[1]) {
+                            merged.get(j)[0] <= merged.get(i)[1]) {
                         merged.get(i)[0] = Math.min(merged.get(i)[0], merged.get(j)[0]);
                         merged.get(i)[1] = Math.max(merged.get(i)[1], merged.get(j)[1]);
                         merged.remove(j);
@@ -43,7 +44,8 @@ public class MergeIntervals {
                         break;
                     }
                 }
-                if (changed) break;
+                if (changed)
+                    break;
             }
         }
         return merged.toArray(new int[0][]);
@@ -92,14 +94,14 @@ public class MergeIntervals {
     // =========================================================================
     public static void main(String[] args) {
         System.out.println("=== Merge Intervals ===");
-        int[][] intervals = {{1,3},{2,6},{8,10},{15,18}};
+        int[][] intervals = { { 1, 3 }, { 2, 6 }, { 8, 10 }, { 15, 18 } };
 
         System.out.println("Best: " + Arrays.deepToString(
-            mergeBest(new int[][]{{1,3},{2,6},{8,10},{15,18}})));
+                mergeBest(intervals)));
         // [[1,6],[8,10],[15,18]]
 
         System.out.println("Stack:" + Arrays.deepToString(
-            mergeStack(new int[][]{{1,4},{4,5}})));
+                mergeStack(new int[][] { { 1, 4 }, { 4, 5 } })));
         // [[1,5]]
     }
 }
