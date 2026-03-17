@@ -456,4 +456,76 @@ public class Trie {
 ```
 
 ---
+
+## 10. Strings
+**Concept Theory:**
+A String is a sequence of characters, typically implemented as an array of characters under the hood. In Java, Strings are immutable, meaning once a String object is created, its value cannot be changed. Any modification results in a new String object. For mutable sequences of characters, `StringBuilder` or `StringBuffer` are used.
+
+**Visual Representation:**
+```text
+String: "hello"
+Index:    [ 0 ] [ 1 ] [ 2 ] [ 3 ] [ 4 ]
+Char:     | 'h' | 'e' | 'l' | 'l' | 'o' |
+```
+
+**Time Complexity:**
+- **Access:** O(1)
+- **Search (Substring):** O(N * M) naive, or O(N) with algorithms like KMP
+- **Concatenation:** O(N + M) (creating a new string of combined length)
+
+**Step-by-Step Implementation & Internal Working:**
+In Java, String manipulation using `+` in loops is inefficient due to immutability. `StringBuilder` provides an efficient, mutable alternative.
+
+```java
+public class StringConcepts {
+    public static void main(String[] args) {
+        // String Immutability
+        String str1 = "hello";
+        String str2 = str1;
+        str1 = str1 + " world"; // Creates a new String object
+        
+        // Efficient way: StringBuilder
+        StringBuilder sb = new StringBuilder("hello");
+        sb.append(" world"); // Modifies the existing array
+        
+        // Step 1: Using char array to build strings manually
+        char[] chars = {'h', 'e', 'l', 'l', 'o'};
+        String fromChars = new String(chars);
+    }
+    
+    // Step 2: Custom String Builder representation
+    static class SimpleStringBuilder {
+        private char[] value;
+        private int count;
+
+        public SimpleStringBuilder(int capacity) {
+            value = new char[capacity];
+        }
+
+        public void append(String str) {
+            if (str == null) return;
+            int len = str.length();
+            ensureCapacity(count + len);
+            str.getChars(0, len, value, count); // Copy characters
+            count += len;
+        }
+
+        private void ensureCapacity(int minimumCapacity) {
+            if (minimumCapacity > value.length) {
+                int newCapacity = value.length * 2 + 2;
+                if (newCapacity < minimumCapacity) newCapacity = minimumCapacity;
+                char[] newValue = new char[newCapacity];
+                System.arraycopy(value, 0, newValue, 0, count);
+                value = newValue; // Replace with expanded array
+            }
+        }
+        
+        public String toString() {
+            return new String(value, 0, count);
+        }
+    }
+}
+```
+
+---
 *Generated mathematically and algorithmically to serve as a comprehensive preparation guide for software engineering interviews.*
